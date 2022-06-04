@@ -1,0 +1,24 @@
+//Copy the below codein your Stored Procedures
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `blogAddOrEdit`(
+IN _id INT,
+IN _title VARCHAR(45),
+IN _content VARCHAR(45)
+)
+BEGIN
+IF _id = 0 THEN
+INSERT INTO blogs(title, content)
+VALUES (_title,_content);
+SET _id = last_insert_id();
+ELSE
+UPDATE blogs
+SET
+title = _title,
+content = _content,
+id = _id
+WHERE id = _id;
+END IF;
+SELECT _id AS 'id';
+END
